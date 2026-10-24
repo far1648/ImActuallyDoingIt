@@ -12,10 +12,10 @@ public class WeaponParent : MonoBehaviour
         Vector2 scale = transform.localScale;
         if (direction.x < 0)
         {
-            scale.y = -1;
+            scale.y = -0.5f;
         } else if (direction.x > 0)
         {
-            scale.y = 1;
+            scale.y = 0.5f;
         }
         transform.localScale = scale;
     }
