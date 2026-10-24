@@ -3,18 +3,18 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    Rigidbody2D rb;
-    Animator anim;
     private InputActionReference pointerPosition;
+    public float moveSpeed = 5f;
     private Vector2 pointerInput, movementInput;
 
     public WeaponParent weaponParent;
+    Animator anim;
+    Rigidbody2D Rb;
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponentInChildren<Animator>();
+        Rb = GetComponentInParent<Rigidbody2D>();
         weaponParent = GetComponentInChildren<WeaponParent>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -32,7 +32,8 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        rb.MovePosition(rb.position + movementInput * moveSpeed * Time.fixedDeltaTime);
+        Rb.MovePosition(Rb.position + movementInput * moveSpeed * Time.fixedDeltaTime);
+        
         if (movementInput.x != 0 || movementInput.y !=0)
         {
             anim.SetBool("isRunning", true);
