@@ -119,6 +119,59 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &390413630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 390413631}
+  - component: {fileID: 390413632}
+  m_Layer: 0
+  m_Name: MapGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &390413631
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390413630}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.56836, y: -0.18087, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &390413632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390413630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f0538bac7db3c48afa25d8c3f3b9b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WalkerGenerator
+  tileMap: {fileID: 1021311061}
+  ground: {fileID: 11400000, guid: 018577280c0cc1643b1e530d24cdff6e, type: 2}
+  water: {fileID: 11400000, guid: bc8d9a700458e5043af201bcc68584e9, type: 2}
+  MapWidth: 45
+  MapHeight: 80
+  MaximumWalkers: 10
+  TileCount: 0
+  FillPercentage: 0.8
+  WaitTime: 0.05
 --- !u!1 &448364440
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,7 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82b18378d852cb2428741007f91d15f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  target: {fileID: 0}
+  target: {fileID: 1311256910}
   speed: 1
   offset: {x: 0, y: 0, z: 0}
 --- !u!1 &548120104
@@ -971,3 +1024,4 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1311256910}
   - {fileID: 548120106}
+  - {fileID: 390413631}

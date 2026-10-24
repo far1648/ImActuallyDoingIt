@@ -1,16 +1,17 @@
 using UnityEngine;
 
-public class WalkerObject : MonoBehaviour
+public class WalkerObject
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public Vector2 Position;
 
-    // Update is called once per frame
-    void Update()
+    public Vector2 Direction;
+
+    public float ChanceToChange;
+
+    public WalkerObject(Vector2 pos, Vector2 dir, float chanceToChange)
     {
-        
+        Position = pos;
+        Direction = dir;
+        ChanceToChange = chanceToChange;
     }
 }
