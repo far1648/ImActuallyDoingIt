@@ -3,22 +3,8 @@ using UnityEngine;
 
 public class BulletMechanic : MonoBehaviour
 {
-    Rigidbody2D Rb;
-
-    void Start()
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        Rb = GetComponent<Rigidbody2D>();
-        
+        Destroy(gameObject);
     }
-
-    void Update()
-    {
-        
-    }
-    void FixedUpdate()
-    {
-        
-    }
-
-    
 }
