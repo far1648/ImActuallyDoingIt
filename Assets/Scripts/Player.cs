@@ -12,14 +12,18 @@ public class Player : MonoBehaviour
     Rigidbody2D Rb;
     public bool lari = false;
 
-    [SerializeField]int health =  100;
+    [SerializeField] float health =  100, maxHealth = 100;
+    [SerializeField] private HealthBarUI healthBar;
     float invisFrame = 1f;
-    [SerializeField]float stamina = 100;
+    [SerializeField] float stamina = 30, maxStamina = 30;
+    [SerializeField] private StaminaBarUI staminaBar;
     void Awake()
     {
         Rb = GetComponentInParent<Rigidbody2D>();
         weaponParent = GetComponentInChildren<WeaponParent>();
         anim = GetComponentInChildren<Animator>();
+        healthBar.SetMaxHealth(maxHealth);
+        staminaBar.SetMaxStamina(maxStamina);
     }
 
     void Update()
@@ -38,19 +42,34 @@ public class Player : MonoBehaviour
     {
         Move();
 
-        if (stamina < 100 && !Input.GetKey(KeyCode.LeftShift))
+        if (stamina < maxStamina && !Input.GetKey(KeyCode.LeftShift))
         {
-            stamina += Time.deltaTime * 10;
+            SetStamina(Time.deltaTime * 7.5f);
         }
+    }
+
+    public void SetHealth(float healthChange)
+    {
+        health += healthChange;
+        health = Mathf.Clamp(health, 0, maxHealth);
+
+        healthBar.SetHealth(health);
+    }
+    public void SetStamina(float staminaChange)
+    {
+        stamina += staminaChange;
+        stamina = Mathf.Clamp(stamina, 0, maxStamina);
+
+        staminaBar.SetStamina(stamina);
     }
 
     void Move()
     {
-        if (stamina >= 0 && Input.GetKey(KeyCode.LeftShift))
+        if (stamina >= 0 && Input.GetKey(KeyCode.LeftShift) && (movementInput.x != 0 || movementInput.y !=0))
         {
             moveSpeed = 10f;
             lari = true;
-            stamina -= Time.deltaTime * 10;
+            SetStamina(-Time.deltaTime * 10);
         } else
         {
             moveSpeed = 5f;
@@ -81,7 +100,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "Angrity" && invisFrame <= 0)
         {
-            health -= 10;
+            SetHealth(-10);
             invisFrame = 1;
         }
     }
