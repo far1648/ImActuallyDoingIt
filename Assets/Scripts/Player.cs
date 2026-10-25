@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField] float stamina = 30, maxStamina = 30;
     [SerializeField] private StaminaBarUI staminaBar;
     public GameObject gameOverScreen;
+    float cooldown = 0f;
     void Awake()
     {
         Rb = GetComponentInParent<Rigidbody2D>();
@@ -78,7 +79,7 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        if (stamina >= 0 && Input.GetKey(KeyCode.LeftShift) && (movementInput.x != 0 || movementInput.y !=0))
+        if (stamina > 0 && Input.GetKey(KeyCode.LeftShift) && (movementInput.x != 0 || movementInput.y !=0))
         {
             moveSpeed = 10f;
             lari = true;
