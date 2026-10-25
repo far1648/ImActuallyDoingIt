@@ -10,6 +10,10 @@ public class Player : MonoBehaviour
     public WeaponParent weaponParent;
     Animator anim;
     Rigidbody2D Rb;
+    public bool lari = false;
+
+    [SerializeField]int health =  100;
+    [SerializeField]float stamina = 100;
     void Awake()
     {
         Rb = GetComponentInParent<Rigidbody2D>();
@@ -28,19 +32,37 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         Move();
+
+        if (stamina < 100 && !Input.GetKey(KeyCode.LeftShift))
+        {
+            stamina += Time.deltaTime * 10;
+        }
     }
 
     void Move()
     {
+        if (stamina >= 0 && Input.GetKey(KeyCode.LeftShift))
+        {
+            moveSpeed = 10f;
+            anim.SetBool("isRunning", true);
+            lari = true;
+            stamina -= Time.deltaTime * 10;
+        } else
+        {
+            moveSpeed = 5f;
+            anim.SetBool("isRunning", false);
+            lari = false;
+        }
+        
         Rb.MovePosition(Rb.position + movementInput * moveSpeed * Time.fixedDeltaTime);
         
         if (movementInput.x != 0 || movementInput.y !=0)
         {
-            anim.SetBool("isRunning", true);
+            anim.SetBool("isWalking", true);
         }
         else
         {
-            anim.SetBool("isRunning", false);
+            anim.SetBool("isWalking", false);
         }
     }
 
