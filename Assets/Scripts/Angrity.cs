@@ -6,6 +6,7 @@ public class Angrity : MonoBehaviour
     Rigidbody2D Rb;
     float moveSpeed = 3f;
     float randomX, randomY;
+    float timer = 30f;
     void Start()
     {
         Rb = GetComponent<Rigidbody2D>();
@@ -17,6 +18,11 @@ public class Angrity : MonoBehaviour
 
     void Update()
     {
+        timer -= Time.deltaTime;
+        if (timer <= 0)
+        {
+            Destroy(gameObject);
+        }
         transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
     }
 
