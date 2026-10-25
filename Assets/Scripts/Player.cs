@@ -49,13 +49,11 @@ public class Player : MonoBehaviour
         if (stamina >= 0 && Input.GetKey(KeyCode.LeftShift))
         {
             moveSpeed = 10f;
-            anim.SetBool("isRunning", true);
             lari = true;
             stamina -= Time.deltaTime * 10;
         } else
         {
             moveSpeed = 5f;
-            anim.SetBool("isRunning", false);
             lari = false;
         }
         
@@ -63,11 +61,19 @@ public class Player : MonoBehaviour
         
         if (movementInput.x != 0 || movementInput.y !=0)
         {
-            anim.SetBool("isWalking", true);
+            if (moveSpeed == 5)
+            {
+                anim.SetBool("isWalking", true);
+            }
+            if (moveSpeed == 10)
+            {
+                anim.SetBool("isRunning", true);
+            }
         }
         else
         {
             anim.SetBool("isWalking", false);
+            anim.SetBool("isRunning", false);
         }
     }
 
