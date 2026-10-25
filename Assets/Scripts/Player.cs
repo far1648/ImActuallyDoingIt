@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public bool lari = false;
 
     [SerializeField]int health =  100;
+    float invisFrame = 1f;
     [SerializeField]float stamina = 100;
     void Awake()
     {
@@ -27,6 +28,10 @@ public class Player : MonoBehaviour
 
         movementInput.x = Input.GetAxisRaw("Horizontal");
         movementInput.y = Input.GetAxisRaw("Vertical");
+        if (invisFrame >= 0)
+        {
+            invisFrame -= Time.deltaTime;
+        }
     }
 
     void FixedUpdate()
@@ -63,6 +68,15 @@ public class Player : MonoBehaviour
         else
         {
             anim.SetBool("isWalking", false);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Angrity" && invisFrame <= 0)
+        {
+            health -= 10;
+            invisFrame = 1;
         }
     }
 
