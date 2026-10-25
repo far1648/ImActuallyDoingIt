@@ -14,9 +14,10 @@ public class Player : MonoBehaviour
 
     [SerializeField] float health =  100, maxHealth = 100;
     [SerializeField] private HealthBarUI healthBar;
-    float invisFrame = 1f;
+    float iFrame = 1f;
     [SerializeField] float stamina = 30, maxStamina = 30;
     [SerializeField] private StaminaBarUI staminaBar;
+    public GameObject gameOverScreen;
     void Awake()
     {
         Rb = GetComponentInParent<Rigidbody2D>();
@@ -30,22 +31,34 @@ public class Player : MonoBehaviour
     {
         UpdatePointer();
 
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            SetHealth(-50);
+        }
+
         movementInput.x = Input.GetAxisRaw("Horizontal");
         movementInput.y = Input.GetAxisRaw("Vertical");
-        if (invisFrame >= 0)
+        
+        if (iFrame >= 0)
         {
-            invisFrame -= Time.deltaTime;
+            iFrame -= Time.deltaTime;
+        }
+        if (stamina < maxStamina && !Input.GetKey(KeyCode.LeftShift))
+        {
+            SetStamina(Time.deltaTime * 7.5f);
+        }
+
+        if (health <= 0)
+        {
+            gameOverScreen.SetActive(true);
+            Destroy(this);
+            Time.timeScale = 0f;
         }
     }
 
     void FixedUpdate()
     {
         Move();
-
-        if (stamina < maxStamina && !Input.GetKey(KeyCode.LeftShift))
-        {
-            SetStamina(Time.deltaTime * 7.5f);
-        }
     }
 
     public void SetHealth(float healthChange)
@@ -98,10 +111,10 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Angrity" && invisFrame <= 0)
+        if (collision.gameObject.tag == "Angrity" && iFrame <= 0)
         {
             SetHealth(-10);
-            invisFrame = 1;
+            iFrame = 1;
         }
     }
 
