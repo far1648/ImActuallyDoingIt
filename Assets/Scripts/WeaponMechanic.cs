@@ -11,6 +11,7 @@ public class WeaponMechanic : MonoBehaviour
     public Transform parent;
     public Camera cam;
     Vector2 mousePos;
+    public Animator anim;
 
     void Update()
     {
@@ -20,12 +21,17 @@ public class WeaponMechanic : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Shoot();
+            anim.SetBool("isShooting", true);
+        }
+        else
+        {
+            anim.SetBool("isShooting", false);
         }
     }
 
     void Shoot()
     {
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+        GameObject bullet = Instantiate(bulletPrefab, gunPoint.position, transform.rotation);
         Rigidbody2D Rb = bullet.GetComponent<Rigidbody2D>();
         Rb.AddForce(gunPoint.right * bulletForce, ForceMode2D.Impulse);
     }
